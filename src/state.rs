@@ -91,7 +91,7 @@ impl AtomicState {
     /// Attempt to transition the state to `Tidying`
     ///
     /// If the state is currently before `Tidying`, then the transition will
-    /// succeed. A successful transition grants the caller a lock to cleanup the
+    /// succeed. A successful transition grants the caller a lock to clean up the
     /// pool state. Only the caller should transfer to `Terminated`.
     pub fn try_transition_to_tidying(&self) -> bool {
         let mut state = self.load();

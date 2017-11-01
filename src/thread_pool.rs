@@ -218,7 +218,7 @@ impl Builder {
     /// Set the thread keep alive duration
     ///
     /// When the number of threads is greater than core target or core threads
-    /// are allowed to timeout, this is the maximum time that idle threads will
+    /// are allowed to time out, this is the maximum time that idle threads will
     /// wait for new tasks before terminating.
     pub fn keep_alive(mut self, val: Duration) -> Self {
         self.thread_pool.keep_alive = Some(val);
@@ -319,7 +319,7 @@ impl<T: Task> ThreadPool<T> {
     /// due to a failure during execution prior to the thread pool shutting
     /// down, a new one will take its place if needed to execute subsequent
     /// tasks. The threads in the pool will exist until the thread pool is
-    /// explicitly shutdown.
+    /// explicitly shut down.
     pub fn fixed_size(size: usize) -> (Sender<T>, ThreadPool<T>) {
         Builder::new()
             .core_pool_size(size)
@@ -331,7 +331,7 @@ impl<T: Task> ThreadPool<T> {
     /// Create a thread pool with a single worker thread operating off an
     /// unbounded queue.
     ///
-    /// Note, however, that if this single thread termintaes due to a failure
+    /// Note, however, that if this single thread terminates due to a failure
     /// during execution prior to the thread pool shutting down, a new one will
     /// take its place if needed to execute subsequent tasks. Tasks are
     /// guaranteed to execute sequentially, and no more than one task will be
@@ -492,7 +492,7 @@ impl<T: Task> Sender<T> {
 }
 
 impl Sender<Box<TaskBox>> {
-    /// Send a fn to run on the thread pool, blocking if necessary
+    /// Send a `fn` to run on the thread pool, blocking if necessary
     ///
     /// The function may result in spawning additional threads depending on the
     /// current state and configuration of the thread pool.
@@ -503,7 +503,7 @@ impl Sender<Box<TaskBox>> {
         self.send(task)
     }
 
-    /// Send a fn to run on the thread pool, blocking if necessary for up to
+    /// Send a `fn` to run on the thread pool, blocking if necessary for up to
     /// `duration`
     pub fn send_fn_timeout<F>(&self, task: F, timeout: Duration)
         -> Result<(), SendTimeoutError<Box<TaskBox>>>
@@ -513,7 +513,7 @@ impl Sender<Box<TaskBox>> {
         self.send_timeout(task, timeout)
     }
 
-    /// Send a fn to run on the thread pool, returning immediately if at
+    /// Send a `fn` to run on the thread pool, returning immediately if at
     /// capacity.
     pub fn try_send_fn<F>(&self, task: F)
         -> Result<(), TrySendError<Box<TaskBox>>>

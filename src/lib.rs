@@ -5,7 +5,7 @@
 //! thread pool supports a variety of different configuration options useful for
 //! tweaking its exact behavior.
 //!
-//! Thread pools address two different porblems: they usually provide improved
+//! Thread pools address two different problems: they usually provide improved
 //! performance when executing large numbers of asynchronous tasks, due to
 //! reduced per-task invocation overhead, and they provide a means of bounding
 //! and managing the resources, including threads, consumed when executing a
